@@ -209,6 +209,7 @@
     display: flex;
     align-items: center;
     border: 1px solid green;
+    cursor: pointer;
 }
 .download_report_image {
     height: 20px;
@@ -227,6 +228,28 @@
     border-radius: 25px;
     color: #711818;
 }
+.loading_main_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.loader_spinner_inside_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.loading_patient_scans_title{
+    margin-top: 20px;
+    font-weight: bold;
+}
+.mobile_view_logo_image {
+    height: 200px;
+    width: 200px;
+}
+
 @media screen and (max-width:767px){
     .login_page_left_image {
         display: none;
@@ -234,7 +257,9 @@
     .login_page_form_container{
         padding: 0px 100px;
         width: 100%;
-    }.dentist_scans_grid_container{
-            margin:0px 10px 10px 0px;
+    }
+    .dentist_scans_grid_container{
+        margin:0px 10px 10px 0px;
     }
 }
+

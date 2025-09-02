@@ -16,16 +16,21 @@ const LoginPage = () => {
   const handleSubmit = async(event) => {
     event.preventDefault()
     const loginValues = {email:email,password:password,role:role}
-    // const response = await axios.post("http://localhost:3035/api/auth/login",loginValues)
-  //   console.log("Response:",response.data)
-  //   if(response.data.success){  
-  //       Cookies.set('jwtToken', response.data.jwtToken, {expires: 30})
-  //       toast.success(response.data.message)
-  //       navigate("/")
-  //   }else{
-  //       toast.error(response.data.message)
-  // }
-  console.log("loginValues:",loginValues)
+    const response = await axios.post("http://localhost:3035/api/auth/login",loginValues)
+    console.log("Response:",response.data.user.role)
+    if(response.data.user.role ==="Dentist"){  
+        Cookies.set('jwtToken', response.data.jwtToken, {expires: 30})
+        toast.success(response.data.message)
+        navigate("/dentist")
+    }
+    else if(response.data.user.role ==="Technician"){
+      Cookies.set('jwtToken', response.data.jwtToken, {expires: 30})
+        toast.success(response.data.message)
+        navigate("/technician")
+    }
+    else{
+        toast.error(response.data.message)
+    }
 }
 
   return (

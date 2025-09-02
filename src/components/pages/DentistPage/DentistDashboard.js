@@ -4,6 +4,8 @@ import { CiSearch } from "react-icons/ci";
 import { LuUser } from "react-icons/lu";
 import { MdOutlineFileDownload } from "react-icons/md";
 import Popup from 'reactjs-popup'
+import { toast } from "react-toastify";
+import {Circles} from 'react-loader-spinner'
 
 // Mock data for demonstration
 const mockScans = [
@@ -59,39 +61,23 @@ const DentistDashboard = () => {
     scan.scanType.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // const handleDownloadReport = (scan) => {
-  //   toast({
-  //     title: "Report Downloaded",
-  //     description: `PDF report for ${scan.patientName} has been downloaded`,
-  //   });
-  //   // In a real app, this would generate and download a PDF
-  //   console.log("Downloading report for:", scan);
-  // };
-
-  const getScanTypeColor = (scanType) => {
-    const colors = {
-      "Panoramic X-ray": "bg-blue-100 text-blue-800",
-      "Bitewing X-ray": "bg-green-100 text-green-800",
-      "CT Scan": "bg-purple-100 text-purple-800",
-      "Periapical X-ray": "bg-orange-100 text-orange-800",
-      "3D Imaging": "bg-pink-100 text-pink-800",
-    };
-    return colors[scanType] || "bg-gray-100 text-gray-800";
+  const handleDownloadReport = (scan) => {
+    toast({
+      title: "Report Downloaded",
+      description: `PDF report for ${scan.patientName} has been downloaded`,
+    });
+    // In a real app, this would generate and download a PDF
+    console.log("Downloading report for:", scan);
   };
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background">
-        {/* <Header userRole="Dentist" onLogout={onLogout} /> */}
-        <main className="container mx-auto px-4 py-8">
-          <div className="flex items-center justify-center h-64">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-              <p className="text-muted-foreground">Loading patient scans...</p>
-            </div>
-          </div>
-        </main>
+    <div className="loading_main_container">
+      <div className="loader_spinner_inside_container">
+        <Circles type="ThreeDots" color="#0852f2ff" height="50" width="50" />
+        <p className="loading_patient_scans_title">Loading patient scans...</p>
       </div>
+    </div>
     );
   }
 
@@ -204,13 +190,12 @@ const DentistDashboard = () => {
               >
                 View
               </button>
-          <div className="download_report_container">
+          <div className="download_report_container" onClick={() => handleDownloadReport(scan)}>
           <MdOutlineFileDownload className="download_report_image"/>
           <button
-            variant="accent"
+            type="button"
             size="sm"
             className="report_button"
-            // onClick={() => handleDownloadReport(scan)}
           >
             Report
           </button>

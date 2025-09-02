@@ -28,3 +28,27 @@
 .header_logo_image {
     height: 60px;
 }
+
+@media screen and (min-width:768px){
+    .logout_mobile_view_button {
+        display: none;
+    }
+    .mobile_view_user_role{
+        display: none;
+    }
+}
+@media screen and (max-width:767px){
+    .logout_mobile_view_button {
+        display: block;
+        color: red; 
+        margin-left: 20px;
+        cursor: pointer;
+        outline: none;
+    }
+    .nav_header_logout_container {
+        display: none;
+    }
+    .desktop_view_user_role {
+        display: none;
+    }
+}
