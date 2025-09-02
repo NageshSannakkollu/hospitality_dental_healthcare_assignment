@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { BiUpload } from "react-icons/bi";
 
 import "./index.css"
+import axios from "axios";
 
 const TechnicianDashboard= () => {
   const [formData, setFormData] = useState({
@@ -18,33 +19,30 @@ const TechnicianDashboard= () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("formData:",formData,selectedFile)
+    const scanDetails = {...formData,selectedFile} 
+    console.log("scanDetails:",scanDetails)
 
-    if (!selectedFile || !formData.patientName || !formData.patientId) {
-      toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields and select an image",
-        variant: "destructive",
-      });
-      return;
-    }
-    setTimeout(() => {
-      toast({
-        title: "Upload Successful",
-        description: "Dental scan has been uploaded and saved",
-      });
+    const response  = await axios.post("http://localhost:3035/api/upload",scanDetails)
+    console.log("Response:",response.data)
+
+    // setTimeout(() => {
+    //   toast({
+    //     title: "Upload Successful",
+    //     description: "Dental scan has been uploaded and saved",
+    //   });
+
       // Reset form
-      setFormData({
-        patientName: "",
-        patientId: "",
-        scanType: "",
-        region: "",
-        notes: "",
-      });
-      setSelectedFile(null);
+      // setFormData({
+      //   patientName: "",
+      //   patientId: "",
+      //   scanType: "",
+      //   region: "",
+      //   notes: "",
+      // });
+      // setSelectedFile(null);
       // setIsUploading(false);
-    }, 2000);
-  };
+  //   }, 2000);
+  // };
 
   return (
     <>
@@ -89,8 +87,8 @@ const TechnicianDashboard= () => {
                 </div>
                 <div className="inside_technician_inputs">
                   <div className="inside_technician_input_forms">
-                    <label htmlFor="scanType">Scan Type</label>
-                      <select className="select_technician_input_forms" onChange={(e) => setFormData({...formData,scanType:e.target.value})}>
+                    <label htmlFor="scanType">Scan Type*</label>
+                      <select className="select_technician_input_forms" onChange={(e) => setFormData({...formData,scanType:e.target.value})} required>
                         <option value="panoramic">Panoramic X-ray</option>
                         <option value="bitewing">Bitewing X-ray</option>
                         <option value="periapical">Periapical X-ray</option>
@@ -99,8 +97,8 @@ const TechnicianDashboard= () => {
                       </select>
                     </div>
                   <div className="inside_technician_input_forms">
-                    <label htmlFor="region">Region</label>
-                      <select className="select_technician_input_forms" onChange={(e) => setFormData({...formData,region:e.target.value})}>
+                    <label htmlFor="region">Region*</label>
+                      <select className="select_technician_input_forms" onChange={(e) => setFormData({...formData,region:e.target.value})} required>
                         <option value="upper-jaw">Upper Jaw</option>
                         <option value="lower-jaw">Lower Jaw</option>
                         <option value="full-mouth">Full Mouth</option>
