@@ -2,8 +2,29 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 6px 20px;
+    background-color: #f4f2f287;
 }
 .user_role_logout_container {
     display: flex;
     align-items: center;
+}
+.nav_header_logout_container {
+    background-color: crimson;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    border: 0px;
+    border-radius: 8px;
+    padding: 6px 15px;
+    margin-left: 10px;
+}
+.user_role_span {
+    font-weight: 600;
+    font-size: 15px;
+    color: green;
+    text-decoration: underline;
+}
+.header_logo_image {
+    height: 60px;
 }

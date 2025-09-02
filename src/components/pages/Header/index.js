@@ -12,7 +12,7 @@ const Header= (props) => {
         {/* {userRole && ( */}
           <div className="flex items-center gap-4">
             <div className="user_role_logout_container">
-              <span className="font-medium">{userRole}</span>
+              <p>User Role: <span className="user_role_span">{userRole}</span></p>
             <button
               variant="outline"
               size="sm"

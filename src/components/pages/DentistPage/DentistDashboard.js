@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import Header from "../Header";
+import { CiSearch } from "react-icons/ci";
 
 // Mock data for demonstration
 const mockScans = [
@@ -92,19 +94,19 @@ const DentistDashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* <Header userRole="Dentist" onLogout={onLogout} /> */}
-      <main className="container mx-auto px-4 py-8">
-        <div className="mb-8">
+      <Header userRole="Dentist"/>
+        <div className="patient_scan_view_title_description_container">
           <h1 className="text-3xl font-bold mb-2">Patient Scan Viewer</h1>
           <p className="text-muted-foreground">
             Review and manage dental imaging records
           </p>
         </div>
         {/* Search and Filters */}
-        <div className="mb-6 shadow-soft">
-          <div className="pt-6">
-            <div className="relative">
-              {/* <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" /> */}
+      <div className="dentist_main_container">  
+      <div className="dentist_inside_container">
+        
+            <div className="dentist_search_report_container">
+              <CiSearch/>
               <input
                 placeholder="Search by patient name, ID, or scan type..."
                 value={searchTerm}
@@ -112,8 +114,7 @@ const DentistDashboard = () => {
                 className="pl-10"
               />
             </div>
-          </div>
-        </div>
+          
         {/* Scans Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredScans.map((scan) => (
@@ -229,7 +230,8 @@ const DentistDashboard = () => {
             </div>
           </div>
         )}
-      </main>
+      </div>
+      </div>
     </div>
   );
 }

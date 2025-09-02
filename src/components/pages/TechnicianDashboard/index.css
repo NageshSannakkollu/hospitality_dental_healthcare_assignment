@@ -8,3 +8,100 @@
     color: #0059ff;
     margin-right: 10px;
 }
+.technician_main_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.inside_technician_inputs {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.inside_technician_input_forms {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+.patient_scan_technician_form_container {
+    text-align: start;
+    /* border: 1px solid red; */
+    padding: 10px 0px;
+}
+.technician_form_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-self: flex-start;
+}
+.technician_input_forms {
+    padding: 6px 20px;
+    border-radius: 6px;
+    width: 200px;
+    margin-right: 10px;
+}
+.scan-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upload-box {
+  border: 2px dashed #bdbdbd;
+  border-radius: 12px;
+  padding: 10px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 18px;
+  width: 100%;
+  max-width: 550px;
+  min-height: 160px;
+}
+.upload-icon svg {
+  margin-bottom: 10px;
+}
+.upload-text {
+  font-size: 18px;
+  color: #888;
+  margin-bottom: 6px;
+}
+.upload-hint {
+  font-size: 15px;
+  color: #bdbdbd;
+}
+.upload-btn {
+  background: linear-gradient(90deg,#1597e7,#37c1f9);
+  color: #fff;
+  padding: 8px 0px;
+  font-size: 16px;
+  border: none;
+  border-radius: 7px;
+  width: 180px;
+  cursor: pointer;
+  outline: none;
+  margin-top: 20px;
+}
+.scan_type_input_form {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+.select_technician_input_forms {
+    padding: 6px 20px;
+    width: 240px;
+    margin-top: 8px;
+}
+.inside_technician_input_forms label{
+    margin-bottom: 8px;
+    margin-top: 6px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+}

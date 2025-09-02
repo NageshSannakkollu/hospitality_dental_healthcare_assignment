@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Header from  "../Header"
-
+import { toast } from "react-toastify";
 import { BiUpload } from "react-icons/bi";
 
 import "./index.css"
+
 const TechnicianDashboard= () => {
   const [formData, setFormData] = useState({
     patientName: "",
@@ -13,103 +14,83 @@ const TechnicianDashboard= () => {
     notes: "",
   });
   const [selectedFile, setSelectedFile] = useState(null);
-  const [isUploading, setIsUploading] = useState(false);
-  // const { toast } = useToast();
-
-  const handleInputChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleFileSelect = (e) => {
-    const file = e.target.files?.[0];
-  };
+  // const [isUploading, setIsUploading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("formData:",formData,selectedFile)
 
-    // if (!selectedFile || !formData.patientName || !formData.patientId) {
-    //   toast({
-    //     title: "Missing Information",
-    //     description: "Please fill in all required fields and select an image",
-    //     variant: "destructive",
-    //   });
-    //   return;
-    // }
-
-    setIsUploading(true);
-    // Simulate upload process
-  //   setTimeout(() => {
-  //     toast({
-  //       title: "Upload Successful",
-  //       description: "Dental scan has been uploaded and saved",
-  //     });
-
-  //     // Reset form
-  //     setFormData({
-  //       patientName: "",
-  //       patientId: "",
-  //       scanType: "",
-  //       region: "",
-  //       notes: "",
-  //     });
-  //     setSelectedFile(null);
-  //     setIsUploading(false);
-  //   }, 2000);
+    if (!selectedFile || !formData.patientName || !formData.patientId) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all required fields and select an image",
+        variant: "destructive",
+      });
+      return;
+    }
+    setTimeout(() => {
+      toast({
+        title: "Upload Successful",
+        description: "Dental scan has been uploaded and saved",
+      });
+      // Reset form
+      setFormData({
+        patientName: "",
+        patientId: "",
+        scanType: "",
+        region: "",
+        notes: "",
+      });
+      setSelectedFile(null);
+      // setIsUploading(false);
+    }, 2000);
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <>
       <Header userRole="Technician"/>
-      <main className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto">
-          <div className="mb-8">
-          <div className="upload_image_title_container">
-            <BiUpload className="upload_image" />
+        <div className="technician_main_container">
+        <div>
             <h1 className="text-3xl font-bold mb-2">Upload Dental Scan</h1>
-          </div>
             <p className="text-muted-foreground">Upload and process dental imaging for patient records</p>
-          </div>
-          <div className="shadow-medium">
-            <div>
-              <p className="flex items-center gap-2">
+          <div className="patient_scan_technician_form_container">
+            <div className="upload_image_title_container">
+              <BiUpload className="upload_image" />
+              <h4 className="flex items-center gap-2">
                 Patient Scan Upload
-              </p>
-              <p>
-                Fill in patient details and upload the dental scan image
-              </p>
-            </div>
+              </h4>
+              </div>
+              <p>Fill in patient details and upload the dental scan image</p>
             <div>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
+              <form onSubmit={handleSubmit} className="technician_form_container">
+                <div className="inside_technician_inputs">
+                  <div className="inside_technician_input_forms">
                     <label htmlFor="patientName">Patient Name *</label>
                     <input
                       id="patientName"
+                      className="technician_input_forms"
                       placeholder="Enter patient full name"
                       value={formData.patientName}
-                      onChange={(e) => handleInputChange('patientName', e.target.value)}
+                      onChange={(e) => setFormData({...formData,patientName:e.target.value})}
                       required
                     />
                   </div>
-                  <div className="space-y-2">
+                  <div className="inside_technician_input_forms">
                     <label htmlFor="patientId">Patient ID *</label>
                     <input
                       id="patientId"
+                      className="technician_input_forms"
                       placeholder="Enter patient ID"
                       value={formData.patientId}
-                      onChange={(e) => handleInputChange('patientId', e.target.value)}
+                      onChange={(e) => setFormData({...formData,patientId:e.target.value})}
                       required
                     />
                   </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
+                <div className="inside_technician_inputs">
+                  <div className="inside_technician_input_forms">
                     <label htmlFor="scanType">Scan Type</label>
-                    <div value={formData.scanType} onValueChange={(value) => handleInputChange('scanType', value)}>
-                      <div>
-                        <input placeholder="Select scan type" />
-                      </div>
-                      <select>
+                      <select className="select_technician_input_forms" onChange={(e) => setFormData({...formData,scanType:e.target.value})}>
                         <option value="panoramic">Panoramic X-ray</option>
                         <option value="bitewing">Bitewing X-ray</option>
                         <option value="periapical">Periapical X-ray</option>
@@ -117,14 +98,9 @@ const TechnicianDashboard= () => {
                         <option value="3d">3D Imaging</option>
                       </select>
                     </div>
-                  </div>
-                  <div className="space-y-2">
+                  <div className="inside_technician_input_forms">
                     <label htmlFor="region">Region</label>
-                    <div value={formData.region} onValueChange={(value) => handleInputChange('region', value)}>
-                      <div>
-                        <input placeholder="Select region" />
-                      </div>
-                      <select>
+                      <select className="select_technician_input_forms" onChange={(e) => setFormData({...formData,region:e.target.value})}>
                         <option value="upper-jaw">Upper Jaw</option>
                         <option value="lower-jaw">Lower Jaw</option>
                         <option value="full-mouth">Full Mouth</option>
@@ -133,71 +109,29 @@ const TechnicianDashboard= () => {
                         <option value="left-side">Left Side</option>
                         <option value="right-side">Right Side</option>
                       </select>
-                    </div>
                   </div>
-                </div>
-                <div className="space-y-2">
+                  </div>
+                <div className="inside_technician_input_forms">
                   <label htmlFor="notes">Notes</label>
                   <textarea
                     id="notes"
                     placeholder="Additional notes or observations"
                     value={formData.notes}
-                    onChange={(e) => handleInputChange('notes', e.target.value)}
+                    onChange={(e) => setFormData({...formData,notes:e.target.value})}
                     rows={3}
-                  />
+                  />  
+                </div> 
+                <div className="inside_technician_input_forms">
+                  <label>Scan Image*</label>
+                  <input type="file" onChange={(e) => setSelectedFile(e.target.files[0])}/>
                 </div>
-                <div className="space-y-2">
-                  <label htmlFor="image">Scan Image *</label>
-                  <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary/50 transition-colors">
-                    <input
-                      id="image"
-                      type="file"
-                      accept="image/*"
-                      onChange={handleFileSelect}
-                      className="hidden"
-                    />
-                    <label htmlFor="image" className="cursor-pointer">
-                      <div className="flex flex-col items-center gap-3">
-                        {selectedFile ? (
-                          <>
-                            {/* <CheckCircle className="h-12 w-12 text-success" /> */}
-                            <div>
-                              <p className="font-medium text-success">{selectedFile.name}</p>
-                              <p className="text-sm text-muted-foreground">
-                                {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
-                              </p>
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            {/* <FileImage className="h-12 w-12 text-muted-foreground" /> */}
-                            <div>
-                              <p className="font-medium">Click to upload image</p>
-                              <p className="text-sm text-muted-foreground">
-                                PNG, JPG, JPEG up to 10MB
-                              </p>
-                            </div>
-                          </>
-                        )}
-                      </div>
-                    </label>
-                  </div>
-                </div>
-                <button
-                  type="submit"
-                  variant="medical"
-                  className="w-full"
-                  size="lg"
-                  disabled={isUploading}
-                >
-                  {isUploading ? "Uploading..." : "Upload Scan"}
-                </button>
+                <button type="submit" className="upload-btn">Upload Scan</button>
               </form>
             </div>
-          </div>
+          </div>  
         </div>
-      </main>
-    </div>
+      </div>
+    </>
   );
 }
 export default TechnicianDashboard
