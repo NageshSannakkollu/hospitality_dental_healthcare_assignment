@@ -1,0 +1,111 @@
+.login_page_main_container {
+    display: flex;
+    height: 100vh;
+}
+.login_page_left_image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("https://res.cloudinary.com/dksgsqhdk/image/upload/v1756747945/0x0_qcsmk2.jpg");
+    height: 100vh;
+    background-repeat: no-repeat;
+    width: 50%;
+    background-size: cover;
+    color: #fff;
+    padding: 0px 50px;
+}
+.login_right_header_para_container {
+    margin-top: 300px;
+    
+}
+.login_right_header_para_container h1{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    letter-spacing: 1px;
+    font-size: 30px;
+}
+.login_right_header_para_container p{
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 9px;
+    text-align: center;
+}
+
+.login_page_form_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 50%;
+    background-color: #f4f2f287;
+}
+
+.logo_image {
+    width: 380px;
+    height: 110px;
+}
+
+.form_main_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 65%;
+}
+.login_input_form {
+    width: 400px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    outline: none;
+    border: 1px solid #000;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #dcd6d649;
+}
+
+.select_input_form{
+    width: 419px;
+}
+.sign_in_button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 10px 30px;
+    border-radius: 13px;
+    border: 0px;
+    background-color: #096ced;
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+.email {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #7a7a7a;
+}
+
+.welcome_back_title {
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+.sign_in_paragraph {
+    font-weight: 400;
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+@media screen and (max-width:767px){
+    .login_page_left_image {
+        display: none;
+    }
+    .login_page_form_container{
+        padding: 0px 100px;
+        width: 100%;
+    }
+}

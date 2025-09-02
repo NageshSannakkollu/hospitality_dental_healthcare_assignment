@@ -1,0 +1,10 @@
+.upload_image_title_container {
+    display: flex;
+    align-items: center;
+}
+.upload_image {
+    height: 30px;
+    width: 30px;
+    color: #0059ff;
+    margin-right: 10px;
+}
