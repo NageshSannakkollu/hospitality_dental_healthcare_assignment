@@ -42,7 +42,7 @@ const TechnicianDashboard= () => {
       // setSelectedFile(null);
       // setIsUploading(false);
   //   }, 2000);
-  // };
+  };
 
   return (
     <>
