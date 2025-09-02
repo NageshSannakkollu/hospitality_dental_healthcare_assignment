@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import Header from "../Header";
 import { CiSearch } from "react-icons/ci";
+import { LuUser } from "react-icons/lu";
+import { MdOutlineFileDownload } from "react-icons/md";
+import Popup from 'reactjs-popup'
 
 // Mock data for demonstration
 const mockScans = [
@@ -11,7 +14,7 @@ const mockScans = [
     scanType: "Panoramic X-ray",
     region: "Full Mouth",
     uploadDate: "2024-08-30",
-    imageUrl: '',
+    imageUrl: 'https://res.cloudinary.com/dksgsqhdk/image/upload/v1756801120/Common-causes-of-swelling-in-oral-cavity_juemgs.jpg',
     notes: "Routine checkup - no abnormalities detected"
   },
   {
@@ -21,7 +24,7 @@ const mockScans = [
     scanType: "Bitewing X-ray",
     region: "Posterior",
     uploadDate: "2024-08-29",
-    imageUrl: '',
+    imageUrl: 'https://res.cloudinary.com/dksgsqhdk/image/upload/v1756801120/Common-causes-of-swelling-in-oral-cavity_juemgs.jpg',
     notes: "Follow-up for cavity treatment"
   },
   {
@@ -31,7 +34,7 @@ const mockScans = [
     scanType: "CT Scan",
     region: "Lower Jaw",
     uploadDate: "2024-08-28",
-    imageUrl: '',
+    imageUrl: 'https://res.cloudinary.com/dksgsqhdk/image/upload/v1756801120/Common-causes-of-swelling-in-oral-cavity_juemgs.jpg',
     notes: "Pre-surgical planning for implant"
   },
 ];
@@ -104,32 +107,33 @@ const DentistDashboard = () => {
         {/* Search and Filters */}
       <div className="dentist_main_container">  
       <div className="dentist_inside_container">
-        
-            <div className="dentist_search_report_container">
-              <CiSearch/>
-              <input
-                placeholder="Search by patient name, ID, or scan type..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
-              />
-            </div>
+          <div className="dentist_search_report_container">
+            <CiSearch/>
+            <input placeholder="Search by patient name, ID, or scan type..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="dentist_search_input"
+            />
+          </div>
           
         {/* Scans Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="dentist_scans_grid_container">
           {filteredScans.map((scan) => (
-            <div className="shadow-medium hover:shadow-strong transition-shadow"> 
+            <div className="individual_scan_item_container"> 
               <div className="pb-3">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <div className="text-lg flex items-center gap-2">
-                      {/* <User className="h-4 w-4 text-primary" /> */}
-                      patientName
+                <div className="patient_name_id_scantype_container">
+                  {/* <div className="patient_name_with_id_container"> */}
+                    <div>
+                    <div className="patient_profile_with_name">
+                      <LuUser className="lu_user_profile"/>
+                      <p>{scan.patientName}</p>
                     </div>
-                    <p>ID: patientId</p>
-                  </div>
-                  <p className={getScanTypeColor(scan.scanType)}>
-                    scanType
+                    <p className="patient_id">ID:{scan.patientId}</p>
+                    </div>
+                    
+                  {/* </div> */}
+                  <p className="scan_type">
+                    {scan.scanType}
                   </p>
                 </div>
               </div>
@@ -138,32 +142,28 @@ const DentistDashboard = () => {
                   <img
                     src={scan.imageUrl}
                     alt={`${scan.scanType} for ${scan.patientName}`}
-                    className="w-full h-32 object-cover rounded-lg border"
+                    className="scan_dental_image"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                     <div>
-                      <div>
-                        <button
-                          variant="secondary"
-                          size="sm"
+                      <div >
+                      <Popup
+                      modal
+                        trigger={<button
+                        type="button" className="view_all_button"
                           onClick={() => setSelectedScan(scan)}
                         >
                           {/* <Eye className="h-4 w-4 mr-2" /> */}
                           View Full
-                        </button>
-                      </div>
-                      <div className="max-w-4xl">
+                        </button>}
+                      >
+                        <div className="dentist_scan_report_popup_container">
                         <div>
                           <h2 className="flex items-center gap-2">
-                            scanType - patientName
+                            {scan.scanType} - {scan.patientName}
                           </h2>
                         </div>
                         <div className="space-y-4">
-                          <img
-                            src={scan.imageUrl}
-                            alt={`${scan.scanType} for ${scan.patientName}`}
-                            className="w-full max-h-96 object-contain rounded-lg border"
-                          />
                           <div className="grid grid-cols-2 gap-4 text-sm">
                             <div>
                               <p><strong>Patient ID:</strong> {scan.patientId}</p>
@@ -176,63 +176,63 @@ const DentistDashboard = () => {
                           </div>
                           {scan.notes && (
                             <div>
-                              <p className="font-medium mb-1">Notes:</p>
-                              <p className="text-sm text-muted-foreground">{scan.notes}</p>
+                              <p className="font-medium mb-1"><strong>Notes: </strong>{scan.notes}</p>
+                              <p className="text-sm text-muted-foreground"></p>
                             </div>
                           )}
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-2 text-sm">
+                        <div className="space-y-2 text-sm">
                   <div className="flex items-center gap-2 text-muted-foreground">
-                    <span>Region: {scan.region}</span>
+                    <span><strong>Region: </strong>{scan.region}</span>
                   </div>
                   <div className="flex items-center gap-2 text-muted-foreground">
-                    <span>{new Date(scan.uploadDate).toLocaleDateString()}</span>
+                    <span><strong>Date: </strong>{new Date(scan.uploadDate).toLocaleDateString()}</span>
                   </div>
                 </div>
-                <div className="flex gap-2 pt-2">
-                  <div>
-                    <div>
-                      <button
-                        variant="outline"
-                        size="sm"
-                        className="flex-1"
-                        onClick={() => setSelectedScan(scan)}
-                      >
-                        View
-                      </button>
-                    </div>
-                  </div>
-                  
-                  <button
-                    variant="accent"
-                    size="sm"
-                    className="flex-1"
-                    // onClick={() => handleDownloadReport(scan)}
-                  >
-                    Report
-                  </button>
                 </div>
-              </div>
+              </Popup>
+              </div>    
             </div>
-          ))}
-        </div>
-        {filteredScans.length === 0 && (
-          <div className="shadow-soft">
-            <div className="py-12 text-center">
-              <h3 className="text-lg font-medium mb-2">No scans found</h3>
-              <p className="text-muted-foreground">
-                {searchTerm ? "Try adjusting your search criteria" : "No dental scans have been uploaded yet"}
-              </p>
             </div>
           </div>
-        )}
-      </div>
+          <div className="view_and_report_scan_buttons_container">
+              <button
+                variant="outline"
+                size="sm"
+                className="flex-1"
+                onClick={() => setSelectedScan(scan)}
+              >
+                View
+              </button>
+          <div className="download_report_container">
+          <MdOutlineFileDownload className="download_report_image"/>
+          <button
+            variant="accent"
+            size="sm"
+            className="report_button"
+            // onClick={() => handleDownloadReport(scan)}
+          >
+            Report
+          </button>
+          </div>
+        </div>
       </div>
     </div>
+    ))}
+  </div>
+  {filteredScans.length === 0 && (
+    <div className="shadow-soft">
+      <div className="py-12 text-center">
+        <h3 className="text-lg font-medium mb-2">No scans found</h3>
+        <p className="text-muted-foreground">
+          {searchTerm ? "Try adjusting your search criteria" : "No dental scans have been uploaded yet"}
+        </p>
+      </div>
+    </div>
+  )}
+  </div>
+  </div>
+</div>
   );
 }
 
