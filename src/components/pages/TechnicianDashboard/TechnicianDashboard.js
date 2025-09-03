@@ -19,30 +19,32 @@ const TechnicianDashboard= () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const scanDetails = {...formData,selectedFile} 
-    console.log("scanDetails:",scanDetails)
+    const data = new FormData();
+    Object.entries(formData).forEach(([key, value]) => data.append(key, value));
+    data.append('image', selectedFile);
 
-    const response  = await axios.post("http://localhost:3035/api/upload",scanDetails)
-    console.log("Response:",response.data)
-
-    // setTimeout(() => {
-    //   toast({
-    //     title: "Upload Successful",
-    //     description: "Dental scan has been uploaded and saved",
-    //   });
-
+    const response  = await axios.post("http://localhost:3035/api/upload",data)
+    // console.log("Response:",response.data.success)
+    if(response.data.success){
+      setTimeout(() => {
+      toast.success("File Uploaded Successfully")
       // Reset form
-      // setFormData({
-      //   patientName: "",
-      //   patientId: "",
-      //   scanType: "",
-      //   region: "",
-      //   notes: "",
-      // });
-      // setSelectedFile(null);
+      setFormData({
+        patientName: "",
+        patientId: "",
+        scanType: "",
+        region: "",
+        notes: "",
+      });
+      setSelectedFile(null);
       // setIsUploading(false);
-  //   }, 2000);
-  };
+    }, 2000);
+  }
+  else{
+    toast.error(response.data.message)
+  }
+}
+    
 
   return (
     <>

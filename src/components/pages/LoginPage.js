@@ -29,7 +29,7 @@ const LoginPage = () => {
         navigate("/technician")
     }
     else{
-        toast.error(response.data.message)
+        toast.error("Invalid Role.")
     }
 }
 

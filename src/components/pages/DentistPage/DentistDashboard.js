@@ -6,40 +6,9 @@ import { MdOutlineFileDownload } from "react-icons/md";
 import Popup from 'reactjs-popup'
 import { toast } from "react-toastify";
 import {Circles} from 'react-loader-spinner'
+import axios from "axios";
 
 // Mock data for demonstration
-const mockScans = [
-  {
-    id: "1",
-    patientName: "John Smith",
-    patientId: "P001",
-    scanType: "Panoramic X-ray",
-    region: "Full Mouth",
-    uploadDate: "2024-08-30",
-    imageUrl: 'https://res.cloudinary.com/dksgsqhdk/image/upload/v1756801120/Common-causes-of-swelling-in-oral-cavity_juemgs.jpg',
-    notes: "Routine checkup - no abnormalities detected"
-  },
-  {
-    id: "2",
-    patientName: "Sarah Johnson",
-    patientId: "P002",
-    scanType: "Bitewing X-ray",
-    region: "Posterior",
-    uploadDate: "2024-08-29",
-    imageUrl: 'https://res.cloudinary.com/dksgsqhdk/image/upload/v1756801120/Common-causes-of-swelling-in-oral-cavity_juemgs.jpg',
-    notes: "Follow-up for cavity treatment"
-  },
-  {
-    id: "3",
-    patientName: "Michael Brown",
-    patientId: "P003",
-    scanType: "CT Scan",
-    region: "Lower Jaw",
-    uploadDate: "2024-08-28",
-    imageUrl: 'https://res.cloudinary.com/dksgsqhdk/image/upload/v1756801120/Common-causes-of-swelling-in-oral-cavity_juemgs.jpg',
-    notes: "Pre-surgical planning for implant"
-  },
-];
 
 const DentistDashboard = () => {
   const [scans, setScans] = useState([]);
@@ -48,11 +17,15 @@ const DentistDashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate API call to fetch scans
+    const getScanFiles = async() => {
+    const response = await axios.get('http://localhost:3035/api/scans')
+    console.log("Scans:",response.data)
+    setScans(response.data);
+    }
     setTimeout(() => {
-      setScans(mockScans);
       setIsLoading(false);
     }, 1000);
+    getScanFiles()
   }, []);
 
   const filteredScans = scans.filter(scan =>
